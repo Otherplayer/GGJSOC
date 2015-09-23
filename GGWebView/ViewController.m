@@ -21,13 +21,15 @@
     // Do any additional setup after loading the view, typically from a nib.
     
     
-    NSURL *url = [NSURL URLWithString:@"http://121.201.63.217:8080/api/0200/video/player.do?vid=XMTMzNzc2OTIwOA=="];
+//    NSURL *url = [NSURL URLWithString:@"http://121.201.63.217:8080/api/0200/video/player.do?vid=XMTMzNzc2OTIwOA=="];
     
     self.webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    [self.webView loadRequest:request];
+//    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+//    [self.webView loadRequest:request];
     [self.webView setDelegate:self];
     [self.view addSubview:self.webView];
+    
+    [self loadExamplePage:self.webView];
     
 }
 
@@ -45,6 +47,12 @@
     //此url解析规则自己定义
     NSString* rurl=[[request URL] absoluteString];
     NSLog(@"RURL : %@",rurl);
+    
+    if([request.mainDocumentURL.relativePath isEqualToString:@"/getInfo/why"]){
+        NSLog(@"why");
+        return NO;
+    }
+    
     return YES;
 }
 - (void)webViewDidStartLoad:(UIWebView *)webView{
@@ -63,17 +71,17 @@
 //    NSLog(@"\n%@\n%@",currentURL,title);
     
     //首先创建JSContext 对象（此处通过当前webView的键获取到jscontext）
-    JSContext *context=[webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
-    TestJSObject *testJO=[TestJSObject new];
-    context[@"testobject"]=testJO;
-
-//    alert('Hello , Baby !');
-    NSString *alertJS=@"alert('Hello , Baby !');testobject.TestNOParameter()"; //准备执行的js代码
-    [context evaluateScript:alertJS];//通过oc方法调用js的alert
-    
-    //获得body与body之间的HTML
-    NSString *allHTML = [webView stringByEvaluatingJavaScriptFromString:@"document.body.innerHTML"];
-    NSLog(@"allHTML: %@", allHTML);
+//    JSContext *context=[webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
+//    TestJSObject *testJO=[TestJSObject new];
+//    context[@"testobject"]=testJO;
+//
+////    alert('Hello , Baby !');
+//    NSString *alertJS=@"alert('Hello , Baby !');testobject.TestNOParameter()"; //准备执行的js代码
+//    [context evaluateScript:alertJS];//通过oc方法调用js的alert
+//    
+//    //获得body与body之间的HTML
+//    NSString *allHTML = [webView stringByEvaluatingJavaScriptFromString:@"document.body.innerHTML"];
+//    NSLog(@"allHTML: %@", allHTML);
     
     //通过name(获得/设置)页面元素的value值
 //    NSString *js_email_ByName = [webView stringByEvaluatingJavaScriptFromString:@"document.getElementsByName('email')[0].value='hello';"];
@@ -123,11 +131,35 @@
 //    [context evaluateScript:jsStr3];
     
     
+//    <script type="text/javascript">
+//    var vid;
+//    function init() {
+//        vid = document.getElementById("myVideo");
+//        vid.addEventListener("loadedmetadata", addFullscreenButton, false);
+//    }
+//    function addFullscreenButton() {
+//        if (vid.webkitSupportsFullscreen) {
+//            var fs = document.getElementById("fs");
+//            fs.style.visibility = "visible";
+//        }
+//    }
+//    function goFullscreen() {
+//        vid.webkitEnterFullscreen();
+//    }
+//    </script>
+    
     
 }
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(nullable NSError *)error{
     NSLog(@"ERROR : %s  %@",__func__,error);
     
+}
+
+- (void)loadExamplePage:(UIWebView*)webView {
+    NSString* htmlPath = [[NSBundle mainBundle] pathForResource:@"ExampleApp" ofType:@"html"];
+    NSString* appHtml = [NSString stringWithContentsOfFile:htmlPath encoding:NSUTF8StringEncoding error:nil];
+    NSURL *baseURL = [NSURL fileURLWithPath:htmlPath];
+    [webView loadHTMLString:appHtml baseURL:baseURL];
 }
 
 

@@ -17,6 +17,7 @@
 		632BED011BABAEE7004EE8CA /* GGWebViewUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 632BED001BABAEE7004EE8CA /* GGWebViewUITests.m */; };
 		63F1C8141BB24A6A00070218 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63F1C8131BB24A6A00070218 /* JavaScriptCore.framework */; };
 		63F1C8171BB24EDA00070218 /* TestJSObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F1C8161BB24EDA00070218 /* TestJSObject.m */; settings = {ASSET_TAGS = (); }; };
+		63F1C8191BB283F500070218 /* ExampleApp.html in Resources */ = {isa = PBXBuildFile; fileRef = 63F1C8181BB283F500070218 /* ExampleApp.html */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,7 @@
 		63F1C8131BB24A6A00070218 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		63F1C8151BB24EDA00070218 /* TestJSObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestJSObject.h; sourceTree = "<group>"; };
 		63F1C8161BB24EDA00070218 /* TestJSObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestJSObject.m; sourceTree = "<group>"; };
+		63F1C8181BB283F500070218 /* ExampleApp.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = ExampleApp.html; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +110,7 @@
 		632BECDA1BABAEE7004EE8CA /* GGWebView */ = {
 			isa = PBXGroup;
 			children = (
+				63F1C8181BB283F500070218 /* ExampleApp.html */,
 				632BECDE1BABAEE7004EE8CA /* AppDelegate.h */,
 				632BECDF1BABAEE7004EE8CA /* AppDelegate.m */,
 				63F1C8151BB24EDA00070218 /* TestJSObject.h */,
@@ -255,6 +258,7 @@
 				632BECEB1BABAEE7004EE8CA /* LaunchScreen.storyboard in Resources */,
 				632BECE81BABAEE7004EE8CA /* Assets.xcassets in Resources */,
 				632BECE61BABAEE7004EE8CA /* Main.storyboard in Resources */,
+				63F1C8191BB283F500070218 /* ExampleApp.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
