@@ -21,15 +21,15 @@
     // Do any additional setup after loading the view, typically from a nib.
     
     
-//    NSURL *url = [NSURL URLWithString:@"http://121.201.63.217:8080/api/0200/video/player.do?vid=XMTMzNzc2OTIwOA=="];
+    NSURL *url = [NSURL URLWithString:@"http://121.201.63.217:8080/api/0200/video/player.do?vid=XMTMzNzc2OTIwOA=="];
     
     self.webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
-//    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-//    [self.webView loadRequest:request];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    [self.webView loadRequest:request];
     [self.webView setDelegate:self];
     [self.view addSubview:self.webView];
     
-    [self loadExamplePage:self.webView];
+    //[self loadExamplePage:self.webView];
     
 }
 
@@ -46,7 +46,7 @@
     
     //此url解析规则自己定义
     NSString* rurl=[[request URL] absoluteString];
-    NSLog(@"RURL : %@",rurl);
+    NSLog(@"\n\nRURL : %@\nmainDocumentURL : %@\n\n",rurl,request.mainDocumentURL.relativePath);
     
     if([request.mainDocumentURL.relativePath isEqualToString:@"/getInfo/why"]){
         NSLog(@"why");
@@ -79,9 +79,9 @@
 //    NSString *alertJS=@"alert('Hello , Baby !');testobject.TestNOParameter()"; //准备执行的js代码
 //    [context evaluateScript:alertJS];//通过oc方法调用js的alert
 //    
-//    //获得body与body之间的HTML
-//    NSString *allHTML = [webView stringByEvaluatingJavaScriptFromString:@"document.body.innerHTML"];
-//    NSLog(@"allHTML: %@", allHTML);
+    //获得body与body之间的HTML
+    NSString *allHTML = [webView stringByEvaluatingJavaScriptFromString:@"document.body.innerHTML"];
+    NSLog(@"allHTML: %@", allHTML);
     
     //通过name(获得/设置)页面元素的value值
 //    NSString *js_email_ByName = [webView stringByEvaluatingJavaScriptFromString:@"document.getElementsByName('email')[0].value='hello';"];
