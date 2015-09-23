@@ -7,6 +7,7 @@
 //
 
 #import "TestJSObject.h"
+#import <UIKit/UIKit.h>
 
 @implementation TestJSObject
 
@@ -14,6 +15,10 @@
 -(void)TestNOParameter
 {
     NSLog(@"this is ios TestNOParameter");
+    
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"警告" message:@"ssf" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    [alertView show];
+    
 }
 -(void)TestOneParameter:(NSString *)message
 {

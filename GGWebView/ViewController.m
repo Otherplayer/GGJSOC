@@ -21,7 +21,7 @@
     // Do any additional setup after loading the view, typically from a nib.
     
     
-    NSURL *url = [NSURL URLWithString:@"http://www.hotyq.com"];
+    NSURL *url = [NSURL URLWithString:@"http://121.201.63.217:8080/api/0200/video/player.do?vid=XMTMzNzc2OTIwOA=="];
     
     self.webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
@@ -39,8 +39,12 @@
 #pragma mark - UIWebViewDelegate
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
-    NSLog(@"%s %@ %ld",__func__,request,navigationType);
+    //NSLog(@"%s %@ %ld",__func__,request,navigationType);
     //retrun YES 表示正常加载网页 返回NO 将停止网页加载
+    
+    //此url解析规则自己定义
+    NSString* rurl=[[request URL] absoluteString];
+    NSLog(@"RURL : %@",rurl);
     return YES;
 }
 - (void)webViewDidStartLoad:(UIWebView *)webView{
@@ -60,8 +64,26 @@
     
     //首先创建JSContext 对象（此处通过当前webView的键获取到jscontext）
     JSContext *context=[webView valueForKeyPath:@"documentView.webView.mainFrame.javaScriptContext"];
-    NSString *alertJS=@"alert('Hello , Baby !')"; //准备执行的js代码
+    TestJSObject *testJO=[TestJSObject new];
+    context[@"testobject"]=testJO;
+
+//    alert('Hello , Baby !');
+    NSString *alertJS=@"alert('Hello , Baby !');testobject.TestNOParameter()"; //准备执行的js代码
     [context evaluateScript:alertJS];//通过oc方法调用js的alert
+    
+    //获得body与body之间的HTML
+    NSString *allHTML = [webView stringByEvaluatingJavaScriptFromString:@"document.body.innerHTML"];
+    NSLog(@"allHTML: %@", allHTML);
+    
+    //通过name(获得/设置)页面元素的value值
+//    NSString *js_email_ByName = [webView stringByEvaluatingJavaScriptFromString:@"document.getElementsByName('email')[0].value='hello';"];
+//    NSLog(@"Name : %@",js_email_ByName);
+    
+    //通过id(获得/设置)页面元素的value值
+//    NSString *js_email_ById = [webView stringByEvaluatingJavaScriptFromString:@"document.getElementByIdx_x_x('_iphone_email').value='asdfasdf';"];
+//    NSLog(@"js_email_ById==%@",js_email_ById);
+    
+    
     
     //js调用iOS
     //第一种情况
@@ -89,16 +111,16 @@
     //第二种情况，js是通过对象调用的，我们假设js里面有一个对象 testobject 在调用方法
     //首先创建我们新建类的对象，将他赋值给js的对象
     
-    TestJSObject *testJO=[TestJSObject new];
-    context[@"testobject"]=testJO;
+//    TestJSObject *testJO=[TestJSObject new];
+//    context[@"testobject"]=testJO;
     
-    //同样我们也用刚才的方式模拟一下js调用方法
-    NSString *jsStr1=@"testobject.TestNOParameter()";
-    [context evaluateScript:jsStr1];
-    NSString *jsStr2=@"testobject.TestOneParameter('参数1')";
-    [context evaluateScript:jsStr2];
-    NSString *jsStr3=@"testobject.TestTowParameterSecondParameter('参数A','参数B')";
-    [context evaluateScript:jsStr3];
+//    //同样我们也用刚才的方式模拟一下js调用方法
+//    NSString *jsStr1=@"testobject.TestNOParameter()";
+//    [context evaluateScript:jsStr1];
+//    NSString *jsStr2=@"testobject.TestOneParameter('参数1')";
+//    [context evaluateScript:jsStr2];
+//    NSString *jsStr3=@"testobject.TestTowParameterSecondParameter('参数A','参数B')";
+//    [context evaluateScript:jsStr3];
     
     
     
